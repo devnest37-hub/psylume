@@ -193,7 +193,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             avatar_url: profile.avatar_url || undefined,
           }
           setUser(u)
-          setRoleState(u.role)
+          setRoleState(u.role === 'admin' ? 'instructor' : u.role)
         } else {
           const { data: userData } = await supabase.auth.getUser()
           const meta = userData?.user?.user_metadata || {}
@@ -206,7 +206,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             avatar_url: meta.avatar_url,
           }
           setUser(u)
-          setRoleState(u.role)
+          setRoleState(u.role === 'admin' ? 'instructor' : u.role)
         }
       } catch (err) {
         console.warn('Error loading user profile:', err)

@@ -59,9 +59,10 @@ export function UserMenu() {
     .join('')
     .toUpperCase()
 
-  const isInstructor = role === 'instructor'
+  const isAdmin = user.role === 'admin'
+  const isInstructor = role === 'instructor' || role === 'admin' || isAdmin
 
-  const canSwitchMode = user.role === 'instructor' || user.role === 'admin'
+  const canSwitchMode = user.role === 'instructor' || isAdmin
 
   return (
     <div ref={menuRef} className="relative shrink-0">
@@ -81,17 +82,21 @@ export function UserMenu() {
             <span
               className={cx(
                 'inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.2 rounded',
-                isInstructor
+                isAdmin || isInstructor
                   ? 'bg-violet/40 text-amethyst border border-amethyst/30'
                   : 'bg-lavender/10 text-lavender/70 border border-lavender/15',
               )}
             >
-              {isInstructor ? (
+              {isAdmin || isInstructor ? (
                 <ShieldCheck className="size-2.5" />
               ) : (
                 <GraduationCap className="size-2.5" />
               )}
-              {isInstructor ? t('nav.instructorTitle') : t('nav.studentTitle')}
+              {isAdmin
+                ? (isRTL ? 'مسؤول النظام' : 'System Admin')
+                : isInstructor
+                ? t('nav.instructorTitle')
+                : t('nav.studentTitle')}
             </span>
           </div>
         </div>

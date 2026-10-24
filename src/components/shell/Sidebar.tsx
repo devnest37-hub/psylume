@@ -89,13 +89,18 @@ export function Sidebar() {
   const pathname = usePathname()
   const { role, bookmarks, user, openAuthModal, mobileMenuOpen, setMobileMenuOpen } = useStore()
   const { isRTL, t } = useLanguage()
-  const isInstructor = role === 'instructor'
+  const isAdmin = user?.role === 'admin'
+  const isInstructor = role === 'instructor' || role === 'admin' || isAdmin
 
   const displayName = user ? user.full_name : (isRTL ? 'زائر' : 'Guest')
   const displayDetail = user
     ? (user.email || user.faculty || '')
     : t('header.signInRegister')
-  const roleTitle = isInstructor ? t('nav.instructorTitle') : t('nav.studentTitle')
+  const roleTitle = isAdmin
+    ? (isRTL ? 'مسؤول النظام' : 'System Admin')
+    : isInstructor
+    ? t('nav.instructorTitle')
+    : t('nav.studentTitle')
 
   return (
     <>
@@ -184,22 +189,6 @@ export function Sidebar() {
               )
             })}
           </ul>
-
-          <div className="mt-8 mx-1 rounded-2xl p-4 bg-gradient-to-br from-violet/40 to-midnight/40 ring-1 ring-lavender/10">
-            <Sparkles className="size-4 text-amethyst" />
-            <div className="text-sm font-bold mt-2 text-lavender">{t('nav.springSemester')}</div>
-            <p className="text-xs text-lavender/55 mt-1 leading-relaxed">
-              {t('nav.examPeriodInfo')}
-            </p>
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="mt-3 text-xs font-semibold text-amethyst hover:text-lavender inline-flex items-center gap-1 cursor-pointer"
-            >
-              <span>{t('nav.viewLandingPage')}</span>
-              <ChevronRight className={cx('size-3.5', isRTL && 'rotate-180')} />
-            </Link>
-          </div>
         </nav>
 
         {/* User profile footer */}

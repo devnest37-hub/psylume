@@ -108,28 +108,28 @@ export default function SupportPage() {
   return (
     <div className="space-y-10 animate-fade-up">
       {/* Top Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-navy ring-1 ring-lavender/10 p-8">
+      <div className="relative overflow-hidden rounded-3xl bg-navy ring-1 ring-lavender/10 p-5 sm:p-8">
         <div className="absolute right-6 -bottom-10 size-60 rounded-full bg-violet/30 blur-[90px]" />
-        <div className="relative flex items-end justify-between gap-8 flex-wrap">
+        <div className="relative flex flex-col sm:flex-row sm:items-end justify-between gap-6">
           <div>
             <div className="inline-flex items-center gap-2 h-7 px-2.5 rounded-lg bg-violet text-xs font-bold text-lavender">
               <LifeBuoy className="size-3.5" /> {t('support.title')}
             </div>
-            <h1 className="mt-3 text-[32px] font-extrabold tracking-[-0.03em] text-lavender">
+            <h1 className="mt-3 text-[24px] sm:text-[28px] md:text-[32px] font-extrabold tracking-[-0.03em] text-lavender">
               {t('support.title')}
             </h1>
-            <p className="text-sm text-lavender/60 max-w-xl mt-1 leading-relaxed">
+            <p className="text-xs sm:text-sm text-lavender/60 max-w-xl mt-1 leading-relaxed">
               {t('support.subtitle')}
             </p>
           </div>
 
-          <div className="flex gap-2 p-2 rounded-2xl bg-midnight/60 ring-1 ring-lavender/10">
+          <div className="flex flex-wrap gap-2 p-2 rounded-2xl bg-midnight/60 ring-1 ring-lavender/10">
             {STATUS.map((s) => (
               <div
                 key={s.name}
                 className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-midnight/40 text-xs font-semibold text-lavender"
               >
-                <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="size-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
                 <span>{s.name}</span>
               </div>
             ))}
@@ -137,9 +137,9 @@ export default function SupportPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] gap-6 items-start">
         {/* Issue Ticket Submission Form */}
-        <div className="rounded-3xl bg-navy ring-1 ring-lavender/10 p-7">
+        <div className="rounded-3xl bg-navy ring-1 ring-lavender/10 p-5 sm:p-7">
           {submitted ? (
             <div className="text-center py-10 animate-pop">
               <div className="size-16 mx-auto rounded-2xl bg-violet grid place-items-center text-lavender">
@@ -173,7 +173,7 @@ export default function SupportPage() {
               </div>
 
               <Field label={t('support.issueType')}>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   {ISSUE_TYPES_CONFIG.map((it) => (
                     <button
                       type="button"

@@ -71,15 +71,15 @@ export default function HomePage() {
   return (
     <div className="space-y-14 animate-fade-up">
       {/* Top Banner */}
-      <section className="grid grid-cols-[1fr_420px] gap-6">
-        <div className="relative overflow-hidden rounded-3xl bg-navy ring-1 ring-lavender/10 p-8">
+      <section className="grid grid-cols-1 xl:grid-cols-[1fr_420px] gap-6">
+        <div className="relative overflow-hidden rounded-3xl bg-navy ring-1 ring-lavender/10 p-5 sm:p-8">
           <div className="absolute inset-0 bg-grid opacity-60 [mask-image:linear-gradient(to_left,black,transparent)]" />
           <div className="absolute -right-24 -top-24 size-80 rounded-full bg-violet/40 blur-[90px]" />
           <div className="relative">
             <div className="text-sm text-lavender/55 font-medium">
               {greeting}, {firstName}
             </div>
-            <h1 className="mt-2 text-[32px] leading-[1.12] font-extrabold tracking-[-0.03em] max-w-xl text-lavender">
+            <h1 className="mt-2 text-[22px] sm:text-[28px] md:text-[32px] leading-[1.15] font-extrabold tracking-[-0.03em] max-w-xl text-lavender">
               {weekCount > 0 ? (
                 role === 'instructor' ? (
                   <>
@@ -192,7 +192,7 @@ export default function HomePage() {
             }
           />
         ) : (
-          <div className="grid grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {years.map((y, i) => {
               const specs = specialties.filter((s) => s.yearIds.includes(y.id))
               const ls = lectures.filter((l) => l.yearId === y.id)
@@ -308,7 +308,7 @@ export default function HomePage() {
             }
           />
         ) : (
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {specStats.map(({ s, views, lecturesCount }, rank) => {
               const yearId = s.yearIds[0] || 'y1'
               const specSections = sections.filter(
@@ -456,7 +456,7 @@ export default function HomePage() {
             }
           />
         ) : (
-          <div className="grid grid-cols-4 gap-x-6 gap-y-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {recent.map((l) => (
               <LectureCard key={l.id} lecture={l} />
             ))}

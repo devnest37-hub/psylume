@@ -1,9 +1,16 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { StoreProvider } from '@/context/store'
 import { LanguageProvider } from '@/context/language'
 import { Modals } from '@/components/modals/Modals'
 import { Toasts } from '@/components/shell/Toasts'
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#0c1b2a',
+}
 
 export const metadata: Metadata = {
   title: 'Psylume — University Lecture Hub',

@@ -10,6 +10,7 @@ import {
   CircleCheck,
   GraduationCap,
   LogOut,
+  Menu,
   Search,
   ShieldCheck,
   User,
@@ -254,7 +255,7 @@ function SearchInput() {
   return (
     <form
       onSubmit={handleSearch}
-      className={cx('relative flex-1 max-w-md min-w-[200px]', isRTL ? 'mr-auto' : 'ml-auto')}
+      className={cx('relative flex-1 min-w-0 max-w-xs sm:max-w-md', isRTL ? 'mr-auto' : 'ml-auto')}
     >
       <Search
         className={cx(
@@ -277,7 +278,7 @@ function SearchInput() {
 }
 
 export function Header() {
-  const { lectures } = useStore()
+  const { lectures, setMobileMenuOpen } = useStore()
   const { isRTL, t } = useLanguage()
   const crumbs = useBreadcrumbs()
   const [bellOpen, setBellOpen] = useState(false)
@@ -293,8 +294,17 @@ export function Header() {
   const latest = [...lectures].sort((a, b) => b.createdAt - a.createdAt).slice(0, 4)
 
   return (
-    <header className="sticky top-0 z-20 h-[72px] flex items-center gap-4 px-8 bg-midnight/85 backdrop-blur-xl border-b border-lavender/10">
-      <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm min-w-0 shrink">
+    <header className="sticky top-0 z-20 h-[72px] flex items-center gap-2.5 sm:gap-4 px-3 sm:px-8 bg-midnight/85 backdrop-blur-xl border-b border-lavender/10">
+      <button
+        type="button"
+        onClick={() => setMobileMenuOpen((o) => !o)}
+        aria-label="Toggle Menu"
+        className="lg:hidden p-2 rounded-xl bg-navy ring-1 ring-lavender/10 text-lavender hover:text-amethyst cursor-pointer shrink-0"
+      >
+        <Menu className="size-5" />
+      </button>
+
+      <nav aria-label="Breadcrumb" className="hidden md:flex items-center gap-1.5 text-sm min-w-0 shrink">
         {crumbs.map((c, i) => (
           <span key={i} className="flex items-center gap-1.5 min-w-0">
             {i > 0 && (
@@ -320,7 +330,7 @@ export function Header() {
         fallback={
           <div
             className={cx(
-              'relative flex-1 max-w-md min-w-[200px] h-10 rounded-xl bg-navy/50',
+              'relative flex-1 min-w-0 max-w-xs sm:max-w-md h-10 rounded-xl bg-navy/50',
               isRTL ? 'mr-auto' : 'ml-auto',
             )}
           />

@@ -194,7 +194,7 @@ export default function PlayerPage({
   )
 
   return (
-    <div className="grid grid-cols-[minmax(0,1fr)_380px] gap-7 animate-fade-up">
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_380px] gap-6 lg:gap-7 animate-fade-up">
       <div className="min-w-0">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
           <nav

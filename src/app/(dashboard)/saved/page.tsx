@@ -71,20 +71,20 @@ export default function SavedPage() {
   return (
     <div className="animate-fade-up">
       {/* Header */}
-      <div className="flex items-end justify-between gap-6 mb-7">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-7">
         <div>
           <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-amethyst mb-1.5">
             {t('saved.title')}
           </div>
-          <h1 className="text-[32px] font-extrabold tracking-[-0.03em] text-lavender">
+          <h1 className="text-[24px] sm:text-[28px] md:text-[32px] font-extrabold tracking-[-0.03em] text-lavender">
             {t('nav.saved')}
           </h1>
-          <p className="text-lavender/55 mt-1">
+          <p className="text-lavender/55 mt-1 text-sm sm:text-base">
             {t('saved.subtitle')}
           </p>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-2.5 sm:gap-3">
           {[
             { v: videos.length, l: t('saved.videosTab'), i: <PlayCircle className="size-4" /> },
             { v: docs.length, l: t('saved.documentsTab'), i: <FileText className="size-4" /> },
@@ -96,13 +96,13 @@ export default function SavedPage() {
           ].map((s) => (
             <div
               key={s.l}
-              className="rounded-2xl bg-navy ring-1 ring-lavender/10 px-4 py-3 min-w-28"
+              className="rounded-2xl bg-navy ring-1 ring-lavender/10 px-3.5 sm:px-4 py-2.5 sm:py-3 flex-1 sm:flex-initial min-w-24 sm:min-w-28 text-center sm:text-start"
             >
-              <div className="flex items-center gap-1.5 text-amethyst">{s.i}</div>
-              <div className="text-xl font-extrabold tabular-nums mt-1 text-lavender">
+              <div className="flex items-center justify-center sm:justify-start gap-1.5 text-amethyst">{s.i}</div>
+              <div className="text-lg sm:text-xl font-extrabold tabular-nums mt-1 text-lavender">
                 {s.v}
               </div>
-              <div className="text-xs text-lavender/50">{s.l}</div>
+              <div className="text-[11px] sm:text-xs text-lavender/50">{s.l}</div>
             </div>
           ))}
         </div>
@@ -143,7 +143,7 @@ export default function SavedPage() {
             }
           />
         ) : (
-          <div className="grid grid-cols-4 gap-x-6 gap-y-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {videos.map((l) => (
               <div key={l.id} className="relative group/card">
                 <LectureCard lecture={l} />
@@ -181,13 +181,13 @@ export default function SavedPage() {
             {docs.map((l) => (
               <div
                 key={l.id}
-                className="group flex items-center gap-5 p-3 pr-5 rounded-2xl bg-navy/60 ring-1 ring-lavender/10 hover:ring-amethyst/50 hover:bg-navy transition-all animate-fade-up"
+                className="group flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5 p-3 sm:pr-5 rounded-2xl bg-navy/60 ring-1 ring-lavender/10 hover:ring-amethyst/50 hover:bg-navy transition-all animate-fade-up"
               >
-                <Link href={`/lectures/${l.id}`} className="shrink-0">
-                  <LectureThumb lecture={l} compact className="w-44" />
+                <Link href={`/lectures/${l.id}`} className="shrink-0 w-full sm:w-44">
+                  <LectureThumb lecture={l} compact className="w-full sm:w-44 aspect-video" />
                 </Link>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1.5">
+                  <div className="flex flex-wrap items-center gap-2 mb-1.5">
                     <CategoryBadge category={l.category} />
                     <FormatBadge format={l.format} />
                     <span className="text-[11px] font-semibold text-lavender/45">
@@ -200,25 +200,27 @@ export default function SavedPage() {
                   >
                     {l.title}
                   </Link>
-                  <div className="flex items-center gap-4 mt-2 text-xs text-lavender/55">
+                  <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 mt-2 text-xs text-lavender/55">
                     <span>{l.instructor}</span>
                     <span>{l.pages} {t('common.pages')}</span>
                     <span>{l.sizeMB} MB</span>
                   </div>
                 </div>
-                <button
-                  onClick={() => toggleBookmark(l.id)}
-                  aria-label={t('saved.removeBookmark')}
-                  className="size-10 grid place-items-center rounded-xl bg-amethyst/20 ring-1 ring-amethyst text-amethyst hover:bg-amethyst hover:text-midnight transition-colors cursor-pointer shrink-0"
-                >
-                  <Bookmark className="size-4 fill-current" />
-                </button>
-                <Link
-                  href={`/lectures/${l.id}`}
-                  className="h-10 px-4 rounded-xl bg-violet text-lavender text-sm font-semibold inline-flex items-center gap-1.5 shrink-0 group-hover:bg-amethyst group-hover:text-midnight transition-colors"
-                >
-                  {t('saved.openDoc')}
-                </Link>
+                <div className="flex items-center gap-2 shrink-0 justify-end sm:justify-start pt-2 sm:pt-0 border-t border-lavender/5 sm:border-0">
+                  <button
+                    onClick={() => toggleBookmark(l.id)}
+                    aria-label={t('saved.removeBookmark')}
+                    className="size-10 grid place-items-center rounded-xl bg-amethyst/20 ring-1 ring-amethyst text-amethyst hover:bg-amethyst hover:text-midnight transition-colors cursor-pointer shrink-0"
+                  >
+                    <Bookmark className="size-4 fill-current" />
+                  </button>
+                  <Link
+                    href={`/lectures/${l.id}`}
+                    className="h-10 px-4 rounded-xl bg-violet text-lavender text-sm font-semibold inline-flex items-center gap-1.5 shrink-0 group-hover:bg-amethyst group-hover:text-midnight transition-colors"
+                  >
+                    {t('saved.openDoc')}
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -275,10 +277,10 @@ function HistoryRowItem({
       href={`/lectures/${l.id}`}
       className="group w-full flex items-center gap-5 p-3 pr-5 rounded-2xl bg-navy/60 ring-1 ring-lavender/10 hover:ring-amethyst/50 hover:bg-navy text-left transition-all cursor-pointer block"
     >
-      <div className="flex items-center gap-5 w-full">
-        <LectureThumb lecture={l} compact className="w-44 shrink-0" />
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5 w-full">
+        <LectureThumb lecture={l} compact className="w-full sm:w-44 shrink-0 aspect-video" />
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex flex-wrap items-center gap-2 mb-1">
             <CategoryBadge category={l.category} />
             <FormatBadge format={l.format} />
             <span className="text-[11px] text-lavender/45 font-semibold">
@@ -289,7 +291,7 @@ function HistoryRowItem({
             {l.title}
           </div>
           <div className="mt-2 flex items-center gap-3">
-            <div className="w-56 h-1.5 rounded-full bg-lavender/10 overflow-hidden">
+            <div className="w-full max-w-56 h-1.5 rounded-full bg-lavender/10 overflow-hidden">
               <div
                 className={cx('h-full rounded-full', done ? 'bg-lavender' : 'bg-amethyst')}
                 style={{ width: `${Math.max(progress, 0.03) * 100}%` }}

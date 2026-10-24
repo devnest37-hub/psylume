@@ -12,10 +12,12 @@ import {
   LifeBuoy,
   ShieldCheck,
   Sparkles,
+  X,
 } from 'lucide-react'
 import { useStore } from '@/context/store'
 import { Avatar, cx } from '@/components/ui'
 import { type Role } from '@/types'
+import { useLanguage } from '@/context/language'
 
 export function BrandMark({ className }: { className?: string }) {
   return (
@@ -83,11 +85,9 @@ export const PROFILES: Record<Role, { name: string; title: string; detail: strin
   },
 }
 
-import { useLanguage } from '@/context/language'
-
 export function Sidebar() {
   const pathname = usePathname()
-  const { role, bookmarks, user, openAuthModal } = useStore()
+  const { role, bookmarks, user, openAuthModal, mobileMenuOpen, setMobileMenuOpen } = useStore()
   const { isRTL, t } = useLanguage()
   const isInstructor = role === 'instructor'
 
@@ -98,84 +98,112 @@ export function Sidebar() {
   const roleTitle = isInstructor ? t('nav.instructorTitle') : t('nav.studentTitle')
 
   return (
-    <aside
-      className={cx(
-        'fixed inset-y-0 w-[264px] z-30 flex flex-col bg-navy transition-all duration-200',
-        isRTL ? 'right-0 border-l border-lavender/10' : 'left-0 border-r border-lavender/10',
+    <>
+      {/* Mobile Backdrop */}
+      {mobileMenuOpen && (
+        <div
+          onClick={() => setMobileMenuOpen(false)}
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden transition-opacity"
+          aria-hidden="true"
+        />
       )}
-    >
-      <Link
-        href="/home"
-        className="flex items-center gap-3 px-6 h-[72px] cursor-pointer text-start shrink-0"
+
+      <aside
+        className={cx(
+          'fixed inset-y-0 w-[264px] z-50 lg:z-30 flex flex-col bg-navy transition-transform duration-300 ease-in-out',
+          isRTL ? 'right-0 border-l border-lavender/10' : 'left-0 border-r border-lavender/10',
+          mobileMenuOpen
+            ? 'translate-x-0'
+            : isRTL
+            ? 'translate-x-full lg:translate-x-0'
+            : '-translate-x-full lg:translate-x-0',
+        )}
       >
-        <BrandMark className="size-9 shrink-0" />
-        <div>
-          <div className="font-extrabold text-[17px] tracking-tight leading-none text-lavender">
-            Psylume
-          </div>
-          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-lavender/45 mt-1">
-            {t('common.tagline')}
-          </div>
-        </div>
-      </Link>
-
-      <nav className="px-3 mt-4 flex-1 overflow-y-auto">
-        <div className="px-3 mb-2 text-[10.5px] font-bold uppercase tracking-[0.18em] text-lavender/35">
-          {t('nav.menu')}
-        </div>
-        <ul className="space-y-1">
-          {NAV.map((n) => {
-            const active = n.match(pathname)
-            const label = t(`nav.${n.key}`) || n.label
-            return (
-              <li key={n.key}>
-                <Link
-                  href={n.href}
-                  aria-current={active ? 'page' : undefined}
-                  className={cx(
-                    'group relative w-full flex items-center gap-3 h-11 px-3 rounded-xl text-sm font-semibold transition-all cursor-pointer',
-                    active
-                      ? 'bg-violet text-lavender shadow-[0_10px_30px_-12px_var(--color-violet)]'
-                      : 'text-lavender/65 hover:text-amethyst hover:bg-lavender/5',
-                  )}
-                >
-                  <n.icon className="size-[18px] shrink-0" strokeWidth={active ? 2.4 : 2} />
-                  <span className="truncate">{label}</span>
-                  {n.key === 'saved' && bookmarks.length > 0 && (
-                    <span
-                      className={cx(
-                        'text-[11px] tabular-nums h-5 min-w-5 px-1.5 rounded-md grid place-items-center shrink-0',
-                        isRTL ? 'mr-auto' : 'ml-auto',
-                        active ? 'bg-lavender/20' : 'bg-amethyst/20 text-amethyst',
-                      )}
-                    >
-                      {bookmarks.length}
-                    </span>
-                  )}
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
-
-        <div className="mt-8 mx-1 rounded-2xl p-4 bg-gradient-to-br from-violet/40 to-midnight/40 ring-1 ring-lavender/10">
-          <Sparkles className="size-4 text-amethyst" />
-          <div className="text-sm font-bold mt-2 text-lavender">{t('nav.springSemester')}</div>
-          <p className="text-xs text-lavender/55 mt-1 leading-relaxed">
-            {t('nav.examPeriodInfo')}
-          </p>
+        <div className="flex items-center justify-between px-6 h-[72px] shrink-0 border-b border-lavender/5">
           <Link
-            href="/"
-            className="mt-3 text-xs font-semibold text-amethyst hover:text-lavender inline-flex items-center gap-1 cursor-pointer"
+            href="/home"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-3 cursor-pointer text-start"
           >
-            <span>{t('nav.viewLandingPage')}</span>
-            <ChevronRight className={cx('size-3.5', isRTL && 'rotate-180')} />
+            <BrandMark className="size-9 shrink-0" />
+            <div>
+              <div className="font-extrabold text-[17px] tracking-tight leading-none text-lavender">
+                Psylume
+              </div>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-lavender/45 mt-1">
+                {t('common.tagline')}
+              </div>
+            </div>
           </Link>
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(false)}
+            className="lg:hidden p-1.5 rounded-lg text-lavender/60 hover:text-lavender hover:bg-lavender/10 cursor-pointer"
+            aria-label="Close menu"
+          >
+            <X className="size-5" />
+          </button>
         </div>
-      </nav>
 
-      {/* User profile footer */}
-      <div className="p-3.5 border-t border-lavender/10 bg-midnight/30">
+        <nav className="px-3 mt-4 flex-1 overflow-y-auto">
+          <div className="px-3 mb-2 text-[10.5px] font-bold uppercase tracking-[0.18em] text-lavender/35">
+            {t('nav.menu')}
+          </div>
+          <ul className="space-y-1">
+            {NAV.map((n) => {
+              const active = n.match(pathname)
+              const label = t(`nav.${n.key}`) || n.label
+              return (
+                <li key={n.key}>
+                  <Link
+                    href={n.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    aria-current={active ? 'page' : undefined}
+                    className={cx(
+                      'group relative w-full flex items-center gap-3 h-11 px-3 rounded-xl text-sm font-semibold transition-all cursor-pointer',
+                      active
+                        ? 'bg-violet text-lavender shadow-[0_10px_30px_-12px_var(--color-violet)]'
+                        : 'text-lavender/65 hover:text-amethyst hover:bg-lavender/5',
+                    )}
+                  >
+                    <n.icon className="size-[18px] shrink-0" strokeWidth={active ? 2.4 : 2} />
+                    <span className="truncate">{label}</span>
+                    {n.key === 'saved' && bookmarks.length > 0 && (
+                      <span
+                        className={cx(
+                          'text-[11px] tabular-nums h-5 min-w-5 px-1.5 rounded-md grid place-items-center shrink-0',
+                          isRTL ? 'mr-auto' : 'ml-auto',
+                          active ? 'bg-lavender/20' : 'bg-amethyst/20 text-amethyst',
+                        )}
+                      >
+                        {bookmarks.length}
+                      </span>
+                    )}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+
+          <div className="mt-8 mx-1 rounded-2xl p-4 bg-gradient-to-br from-violet/40 to-midnight/40 ring-1 ring-lavender/10">
+            <Sparkles className="size-4 text-amethyst" />
+            <div className="text-sm font-bold mt-2 text-lavender">{t('nav.springSemester')}</div>
+            <p className="text-xs text-lavender/55 mt-1 leading-relaxed">
+              {t('nav.examPeriodInfo')}
+            </p>
+            <Link
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="mt-3 text-xs font-semibold text-amethyst hover:text-lavender inline-flex items-center gap-1 cursor-pointer"
+            >
+              <span>{t('nav.viewLandingPage')}</span>
+              <ChevronRight className={cx('size-3.5', isRTL && 'rotate-180')} />
+            </Link>
+          </div>
+        </nav>
+
+        {/* User profile footer */}
+        <div className="p-3.5 border-t border-lavender/10 bg-midnight/30">
         {user ? (
           <div className="flex items-center gap-3">
             <Avatar name={displayName} size="md" />
@@ -208,5 +236,7 @@ export function Sidebar() {
         )}
       </div>
     </aside>
+    </>
   )
 }
+

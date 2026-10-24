@@ -97,18 +97,18 @@ export default function YearPage({
           )}
         </div>
 
-        <div className="relative mt-5 flex items-end justify-between gap-8">
+        <div className="relative mt-5 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
           <div>
             <span className="inline-flex h-7 px-2.5 items-center rounded-lg bg-violet text-xs font-extrabold text-lavender">
               {y.code}
             </span>
-            <h1 className="mt-3 text-[38px] font-extrabold tracking-[-0.03em] leading-none text-lavender">
+            <h1 className="mt-3 text-[26px] sm:text-[34px] md:text-[38px] font-extrabold tracking-[-0.03em] leading-tight text-lavender">
               {y.name}
             </h1>
-            <p className="mt-2 text-lavender/60">{y.tagline}</p>
+            <p className="mt-2 text-lavender/60 text-sm sm:text-base">{y.tagline}</p>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-2.5 sm:gap-3">
             {[
               { v: specs.length, l: t('specialty.specialties') },
               { v: yl.length, l: t('specialty.lecturesAndFiles') },
@@ -116,12 +116,12 @@ export default function YearPage({
             ].map((s) => (
               <div
                 key={s.l}
-                className="min-w-28 rounded-2xl bg-midnight/50 ring-1 ring-lavender/10 px-4 py-3"
+                className="flex-1 sm:flex-initial min-w-24 sm:min-w-28 rounded-2xl bg-midnight/50 ring-1 ring-lavender/10 px-3.5 sm:px-4 py-2.5 sm:py-3 text-center sm:text-start"
               >
-                <div className="text-2xl font-extrabold tabular-nums text-lavender">
+                <div className="text-xl sm:text-2xl font-extrabold tabular-nums text-lavender">
                   {s.v}
                 </div>
-                <div className="text-xs text-lavender/50">{s.l}</div>
+                <div className="text-[11px] sm:text-xs text-lavender/50">{s.l}</div>
               </div>
             ))}
           </div>
@@ -153,7 +153,7 @@ export default function YearPage({
           }
         />
       ) : (
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {specs.map((s, i) => (
             <SpecialtyCard
               key={s.id}

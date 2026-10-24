@@ -39,3 +39,4 @@ yarn-error.log*
 
 # archives
 *.zip
+.env*

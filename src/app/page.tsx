@@ -67,7 +67,7 @@ export default function LandingPage() {
 
   return (
     <div dir={dir} className="min-h-screen bg-midnight overflow-x-hidden text-lavender">
-      <header className="relative z-20 max-w-[1240px] mx-auto flex items-center gap-6 md:gap-10 px-8 h-20">
+      <header className="relative z-20 max-w-[1240px] mx-auto flex items-center gap-3 sm:gap-6 md:gap-10 px-4 sm:px-8 h-20">
         <Link href="/home" className="flex items-center gap-3 shrink-0">
           <BrandMark className="size-9" />
           <span className="font-extrabold text-lg tracking-tight">Psylume</span>
@@ -83,11 +83,11 @@ export default function LandingPage() {
             {t('landing.forFaculty')}
           </a>
         </nav>
-        <div className={cx('flex items-center gap-3', isRTL ? 'mr-auto' : 'ml-auto')}>
+        <div className={cx('flex items-center gap-2 sm:gap-3', isRTL ? 'mr-auto' : 'ml-auto')}>
           <LanguageSwitcher variant="landing" />
           {isAuthenticated ? (
             <Link href="/home">
-              <Button className="cursor-pointer">
+              <Button className="cursor-pointer text-xs sm:text-sm">
                 <span>{t('landing.goToDashboard')}</span>
                 <ArrowRight className={cx('size-4', isRTL && 'rotate-180')} />
               </Button>
@@ -97,13 +97,13 @@ export default function LandingPage() {
               <Button
                 variant="ghost"
                 onClick={() => openAuthModal('signin')}
-                className="cursor-pointer"
+                className="hidden sm:inline-flex cursor-pointer"
               >
                 {t('nav.signIn')}
               </Button>
               <Button
                 onClick={() => openAuthModal('signup')}
-                className="cursor-pointer"
+                className="cursor-pointer text-xs sm:text-sm px-3.5 sm:px-4"
               >
                 <span>{t('landing.enterPlatform')}</span>
                 <ArrowRight className={cx('size-4', isRTL && 'rotate-180')} />
@@ -117,7 +117,7 @@ export default function LandingPage() {
       <section className="relative">
         <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
         <div className="absolute -top-40 left-1/3 size-[640px] rounded-full bg-violet/30 blur-[140px]" />
-        <div className="relative max-w-[1240px] mx-auto px-8 pt-14 pb-24 grid grid-cols-[1.05fr_1fr] gap-16 items-center">
+        <div className="relative max-w-[1240px] mx-auto px-4 sm:px-8 pt-8 sm:pt-14 pb-16 sm:pb-24 grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-16 items-center">
           <div className="animate-fade-up">
             <div className="inline-flex items-center gap-2 h-8 pl-1.5 pr-3 rounded-full bg-navy ring-1 ring-lavender/15 text-xs font-semibold">
               <span className="h-5 px-2 rounded-full bg-violet grid place-items-center text-[10.5px]">
@@ -125,32 +125,32 @@ export default function LandingPage() {
               </span>
               {t('landing.heroBadge')}
             </div>
-            <h1 className="mt-6 text-[60px] leading-[1.03] font-extrabold tracking-[-0.035em] text-lavender">
+            <h1 className="mt-6 text-[32px] sm:text-[44px] md:text-[54px] lg:text-[60px] leading-[1.08] sm:leading-[1.03] font-extrabold tracking-[-0.035em] text-lavender">
               {t('landing.heroTitle')}{' '}
               <span className="font-serif font-medium italic text-amethyst tracking-[-0.02em]">
                 {t('landing.heroHighlight')}
               </span>
             </h1>
-            <p className="mt-6 text-lg text-lavender/65 leading-relaxed max-w-[520px]">
+            <p className="mt-4 sm:mt-6 text-base sm:text-lg text-lavender/65 leading-relaxed max-w-[520px]">
               {t('landing.heroSubtitle')}
             </p>
-            <div className="mt-9 flex items-center gap-3">
+            <div className="mt-7 sm:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <Button
                 size="lg"
                 onClick={handleEnter}
-                className="h-14 px-7 text-base cursor-pointer"
+                className="h-12 sm:h-14 px-6 sm:px-7 text-sm sm:text-base cursor-pointer justify-center"
               >
                 {isAuthenticated ? t('landing.goToDashboard') : t('landing.enterPlatform')}{' '}
                 <ArrowRight className={cx('size-5', isRTL && 'rotate-180')} />
               </Button>
-              <a href="#features">
-                <Button size="lg" variant="outline" className="h-14 px-6 cursor-pointer">
+              <a href="#features" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="w-full h-12 sm:h-14 px-6 cursor-pointer justify-center">
                   <PlayCircle className="size-5" /> {t('landing.seeHowItWorks')}
                 </Button>
               </a>
             </div>
-            <div className="mt-10 flex items-center gap-3">
-              <div className="size-2 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="mt-8 sm:mt-10 flex items-center gap-3">
+              <div className="size-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
               <div className="text-xs text-lavender/60">
                 <span className="font-bold text-lavender">{specialties.length}</span> {t('landing.disciplinesLabel')} &bull; <span className="font-bold text-lavender">{lectures.length}</span> {t('landing.resourcesLabel')}
                 {students > 0 && (
@@ -160,7 +160,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="relative rounded-3xl bg-navy ring-1 ring-lavender/15 p-6 shadow-2xl animate-pop">
+          <div className="relative rounded-3xl bg-navy ring-1 ring-lavender/15 p-4 sm:p-6 shadow-2xl animate-pop">
             <div className="relative aspect-video rounded-2xl overflow-hidden bg-midnight">
               <img
                 src={img(PHOTOS.hall, 900)}
@@ -213,21 +213,21 @@ export default function LandingPage() {
       </section>
 
       {/* Features Showcase */}
-      <section id="features" className="max-w-[1240px] mx-auto px-8 py-28">
+      <section id="features" className="max-w-[1240px] mx-auto px-4 sm:px-8 py-16 sm:py-28">
         <div className="max-w-2xl">
           <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-amethyst">
             {t('landing.whatsInside')}
           </div>
-          <h2 className="mt-3 text-[42px] leading-[1.08] font-extrabold tracking-[-0.03em]">
+          <h2 className="mt-3 text-[26px] sm:text-[34px] md:text-[42px] leading-[1.12] sm:leading-[1.08] font-extrabold tracking-[-0.03em]">
             {t('landing.featuresH2')}{' '}
             <span className="font-serif italic font-medium text-amethyst">
               {t('landing.featuresH2Highlight')}
             </span>
           </h2>
         </div>
-        <div className="mt-14 grid grid-cols-6 gap-5">
+        <div className="mt-10 sm:mt-14 grid grid-cols-1 lg:grid-cols-6 gap-5">
           <Feature
-            className="col-span-4"
+            className="col-span-1 lg:col-span-4"
             icon={<PlayCircle className="size-5" />}
             title={t('landing.feature1Title')}
             body={t('landing.feature1Body')}
@@ -244,7 +244,7 @@ export default function LandingPage() {
                 ))}
                 <span className="absolute top-1/2 -translate-y-1/2 left-[58%] -ml-2 size-4 rounded-full bg-lavender ring-4 ring-amethyst/40" />
               </div>
-              <div className="mt-4 flex gap-2 text-[11px] font-semibold">
+              <div className="mt-4 flex flex-wrap gap-2 text-[11px] font-semibold">
                 {['0.75×', '1×', '1.25×', '1.5×', '2×'].map((s) => (
                   <span
                     key={s}
@@ -260,7 +260,7 @@ export default function LandingPage() {
             </div>
           </Feature>
           <Feature
-            className="col-span-2"
+            className="col-span-1 lg:col-span-2"
             icon={<Layers className="size-5" />}
             title={t('landing.feature2Title')}
             body={t('landing.feature2Body')}
@@ -280,7 +280,7 @@ export default function LandingPage() {
             </div>
           </Feature>
           <Feature
-            className="col-span-3"
+            className="col-span-1 lg:col-span-3"
             icon={<BookOpen className="size-5" />}
             title={t('landing.feature3Title')}
             body={t('landing.feature3Body')}
@@ -308,7 +308,7 @@ export default function LandingPage() {
             </div>
           </Feature>
           <Feature
-            className="col-span-3"
+            className="col-span-1 lg:col-span-3"
             icon={<Bookmark className="size-5" />}
             title={t('landing.feature4Title')}
             body={t('landing.feature4Body')}
@@ -321,12 +321,12 @@ export default function LandingPage() {
                     className="flex items-center gap-3 h-12 px-3 rounded-xl bg-midnight/60 ring-1 ring-lavender/10"
                   >
                     {i === 0 ? (
-                      <PlayCircle className="size-4 text-amethyst" />
+                      <PlayCircle className="size-4 text-amethyst shrink-0" />
                     ) : (
-                      <FileText className="size-4 text-amethyst" />
+                      <FileText className="size-4 text-amethyst shrink-0" />
                     )}
                     <span className="text-[13px] font-semibold flex-1 truncate">{titleText}</span>
-                    <Bookmark className="size-4 fill-amethyst text-amethyst" />
+                    <Bookmark className="size-4 fill-amethyst text-amethyst shrink-0" />
                   </div>
                 ),
               )}
@@ -336,34 +336,34 @@ export default function LandingPage() {
       </section>
 
       {/* For Faculty Banner */}
-      <section id="faculty" className="max-w-[1240px] mx-auto px-8 pb-28">
-        <div className="grid grid-cols-2 rounded-[32px] overflow-hidden ring-1 ring-lavender/10 bg-navy">
-          <div className="relative min-h-[420px]">
+      <section id="faculty" className="max-w-[1240px] mx-auto px-4 sm:px-8 pb-16 sm:pb-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 rounded-[24px] sm:rounded-[32px] overflow-hidden ring-1 ring-lavender/10 bg-navy">
+          <div className="relative h-64 sm:h-80 lg:min-h-[420px]">
             <img
               src={img(PHOTOS.womanBoard, 1000)}
               alt="Instructor in front of a chalkboard"
               className="absolute inset-0 size-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-navy" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/50 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-navy" />
           </div>
-          <div className="p-14 flex flex-col justify-center">
+          <div className="p-6 sm:p-10 lg:p-14 flex flex-col justify-center">
             <div className="inline-flex w-fit items-center gap-1.5 h-7 px-2.5 rounded-lg bg-violet text-xs font-bold text-lavender">
               <ShieldCheck className="size-3.5" /> {t('landing.facultyTag')}
             </div>
-            <h2 className="mt-5 text-[34px] leading-tight font-extrabold tracking-[-0.025em]">
+            <h2 className="mt-4 sm:mt-5 text-[22px] sm:text-[28px] lg:text-[34px] leading-tight font-extrabold tracking-[-0.025em]">
               {t('landing.facultyH2')}
             </h2>
-            <p className="mt-4 text-lavender/60 leading-relaxed">
+            <p className="mt-3 sm:mt-4 text-sm sm:text-base text-lavender/60 leading-relaxed">
               {t('landing.facultyDesc')}
             </p>
-            <ul className="mt-6 space-y-3 text-sm">
+            <ul className="mt-5 sm:mt-6 space-y-2.5 sm:space-y-3 text-xs sm:text-sm">
               {[
                 t('landing.facultyPoint1'),
                 t('landing.facultyPoint2'),
                 t('landing.facultyPoint3'),
               ].map((text) => (
                 <li key={text} className="flex items-center gap-2.5">
-                  <CircleCheck className="size-4 text-amethyst" /> {text}
+                  <CircleCheck className="size-4 text-amethyst shrink-0" /> {text}
                 </li>
               ))}
             </ul>
@@ -373,7 +373,7 @@ export default function LandingPage() {
                 if (isAuthenticated) router.push('/home')
                 else openAuthModal('signin')
               }}
-              className="mt-8 w-fit cursor-pointer"
+              className="mt-6 sm:mt-8 w-full sm:w-fit cursor-pointer justify-center"
             >
               <Upload className="size-4" /> {t('landing.enterAsFaculty')}
             </Button>
@@ -384,21 +384,21 @@ export default function LandingPage() {
       {/* CTA Footer Section */}
       <section className="relative overflow-hidden border-t border-lavender/10">
         <div className="absolute left-1/2 -translate-x-1/2 -bottom-60 size-[700px] rounded-full bg-violet/25 blur-[140px]" />
-        <div className="relative max-w-[1240px] mx-auto px-8 py-24 text-center">
-          <h2 className="text-[44px] font-extrabold tracking-[-0.03em]">
+        <div className="relative max-w-[1240px] mx-auto px-4 sm:px-8 py-16 sm:py-24 text-center">
+          <h2 className="text-[26px] sm:text-[36px] lg:text-[44px] font-extrabold tracking-[-0.03em] leading-tight">
             {years.length} {t('landing.ctaH2', { specialties: specialties.length })}{' '}
             <span className="font-serif italic font-medium text-amethyst">{t('landing.oneHub')}</span>
           </h2>
           <Button
             size="lg"
             onClick={handleEnter}
-            className="mt-9 h-14 px-8 text-base cursor-pointer"
+            className="mt-7 sm:mt-9 h-12 sm:h-14 px-7 sm:px-8 text-sm sm:text-base cursor-pointer mx-auto"
           >
             {isAuthenticated ? t('landing.goToDashboard') : t('landing.enterPlatform')}{' '}
             <ArrowRight className={cx('size-5', isRTL && 'rotate-180')} />
           </Button>
         </div>
-        <footer className="relative max-w-[1240px] mx-auto px-8 py-8 flex items-center justify-between text-xs text-lavender/40 border-t border-lavender/10">
+        <footer className="relative max-w-[1240px] mx-auto px-4 sm:px-8 py-6 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-lavender/40 border-t border-lavender/10 text-center sm:text-start">
           <span>{t('landing.copyright')}</span>
           <span>{t('landing.footerLinks')}</span>
         </footer>

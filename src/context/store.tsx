@@ -87,6 +87,10 @@ export interface Store extends Data {
   openModal: (m: ModalState) => void
   toasts: { id: number; message: string }[]
   toast: (message: string) => void
+
+  // Mobile Navigation
+  mobileMenuOpen: boolean
+  setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const Ctx = createContext<Store | null>(null)
@@ -151,6 +155,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [isLoadingAuth, setIsLoadingAuth] = useState(true)
   const [modal, openModal] = useState<ModalState>(null)
   const [toasts, setToasts] = useState<{ id: number; message: string }[]>([])
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   // Synchronize non-auth state with localStorage
   useEffect(() => {
@@ -924,6 +929,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       openModal,
       toasts,
       toast,
+      mobileMenuOpen,
+      setMobileMenuOpen,
     }),
     [
       data,
@@ -954,6 +961,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       modal,
       toasts,
       toast,
+      mobileMenuOpen,
     ],
   )
 

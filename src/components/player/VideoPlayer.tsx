@@ -448,7 +448,7 @@ export function VideoPlayer({
                 <SkipForward className="size-4" />
               </CtrlBtn>
             )}
-            <div className="flex items-center gap-2 group/vol">
+            <div className="hidden sm:flex items-center gap-2 group/vol">
               <CtrlBtn
                 label={muted ? t('player.unmute') : t('player.mute')}
                 onClick={() => setMuted((m) => !m)}

@@ -204,7 +204,7 @@ export function SectionHeader({
   action?: ReactNode
 }) {
   return (
-    <div className="flex items-end justify-between gap-6 mb-5">
+    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-6 mb-5">
       <div>
         {eyebrow && (
           <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-amethyst mb-1.5">
@@ -216,7 +216,7 @@ export function SectionHeader({
           <p className="text-sm text-lavender/55 mt-1 max-w-xl">{description}</p>
         )}
       </div>
-      {action && <div className="flex items-center gap-2 shrink-0">{action}</div>}
+      {action && <div className="flex items-center gap-2 shrink-0 flex-wrap">{action}</div>}
     </div>
   )
 }
@@ -235,7 +235,7 @@ export function Tabs<T extends string>({
   return (
     <div
       role="tablist"
-      className="inline-flex items-center gap-1 p-1 rounded-xl bg-midnight/60 ring-1 ring-lavender/10"
+      className="inline-flex items-center gap-1 p-1 rounded-xl bg-midnight/60 ring-1 ring-lavender/10 max-w-full overflow-x-auto"
     >
       {tabs.map((t) => {
         const active = t.value === value
@@ -310,7 +310,7 @@ export function LectureThumb({
     <div
       className={cx(
         'relative aspect-video rounded-xl overflow-hidden bg-midnight ring-1 ring-lavender/10',
-        compact ? 'w-48' : 'w-full',
+        compact ? 'w-full sm:w-48' : 'w-full',
         className,
       )}
     >
@@ -411,7 +411,7 @@ export function Modal({
   return (
     <div
       dir={dir}
-      className="fixed inset-0 z-50 grid place-items-center p-6 animate-fade-in"
+      className="fixed inset-0 z-50 grid place-items-center p-3 sm:p-6 animate-fade-in overflow-y-auto"
       role="dialog"
       aria-modal
       aria-label={title}
@@ -419,31 +419,31 @@ export function Modal({
       <div className="absolute inset-0 bg-midnight/80 backdrop-blur-sm" onClick={onClose} />
       <div
         className={cx(
-          'relative w-full max-h-[90vh] flex flex-col rounded-3xl bg-navy ring-1 ring-lavender/15 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.7)] animate-pop',
+          'relative w-full max-h-[92vh] flex flex-col rounded-3xl bg-navy ring-1 ring-lavender/15 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.7)] animate-pop',
           width,
         )}
       >
-        <div className="flex items-start gap-4 p-6 pb-5 border-b border-lavender/10">
+        <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-6 pb-4 sm:pb-5 border-b border-lavender/10">
           {icon && (
-            <div className="size-11 rounded-2xl bg-violet grid place-items-center text-lavender shrink-0">
+            <div className="size-10 sm:size-11 rounded-2xl bg-violet grid place-items-center text-lavender shrink-0">
               {icon}
             </div>
           )}
           <div className="flex-1 min-w-0">
-            <h2 className="text-lg font-bold text-lavender">{title}</h2>
-            {subtitle && <p className="text-sm text-lavender/55 mt-0.5">{subtitle}</p>}
+            <h2 className="text-base sm:text-lg font-bold text-lavender">{title}</h2>
+            {subtitle && <p className="text-xs sm:text-sm text-lavender/55 mt-0.5">{subtitle}</p>}
           </div>
           <button
             onClick={onClose}
             aria-label={t('common.close')}
-            className="size-9 grid place-items-center rounded-xl text-lavender/60 hover:bg-lavender/10 hover:text-lavender cursor-pointer"
+            className="size-8 sm:size-9 grid place-items-center rounded-xl text-lavender/60 hover:bg-lavender/10 hover:text-lavender cursor-pointer shrink-0"
           >
             <X className="size-4" />
           </button>
         </div>
-        <div className="p-6 overflow-y-auto">{children}</div>
+        <div className="p-4 sm:p-6 overflow-y-auto">{children}</div>
         {footer && (
-          <div className="flex justify-end gap-2 px-6 py-4 border-t border-lavender/10 bg-midnight/30 rounded-b-3xl">
+          <div className="flex flex-wrap justify-end gap-2 px-4 sm:px-6 py-3 sm:py-4 border-t border-lavender/10 bg-midnight/30 rounded-b-3xl">
             {footer}
           </div>
         )}

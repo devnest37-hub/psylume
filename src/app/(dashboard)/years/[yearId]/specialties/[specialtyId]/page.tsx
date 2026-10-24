@@ -143,7 +143,7 @@ function SpecialtyHubContent({
         />
         <div className="absolute inset-0 bg-gradient-to-r from-midnight via-midnight/90 to-midnight/30" />
 
-        <div className="relative p-8 flex-1 flex flex-col justify-between">
+        <div className="relative p-5 sm:p-8 flex-1 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <Link
               href={`/years/${yearId}`}
@@ -170,26 +170,26 @@ function SpecialtyHubContent({
             )}
           </div>
 
-          <div className="mt-8 flex items-end justify-between gap-8">
-            <div className="flex items-center gap-5">
-              <span className="size-16 rounded-2xl bg-violet grid place-items-center shadow-xl text-lavender">
-                <SpecialtyIcon icon={s.icon} iconUrl={s.iconUrl} className="size-7" />
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-8">
+            <div className="flex items-center gap-4 sm:gap-5">
+              <span className="size-14 sm:size-16 rounded-2xl bg-violet grid place-items-center shadow-xl text-lavender shrink-0">
+                <SpecialtyIcon icon={s.icon} iconUrl={s.iconUrl} className="size-6 sm:size-7" />
               </span>
               <div>
                 <div className="text-xs font-semibold text-amethyst">
                   {s.faculty} · {s.code}
                 </div>
-                <h1 className="text-[36px] font-extrabold tracking-[-0.03em] leading-tight text-lavender">
+                <h1 className="text-[22px] sm:text-[30px] md:text-[36px] font-extrabold tracking-[-0.03em] leading-tight text-lavender">
                   {s.name}
                 </h1>
-                <p className="text-sm text-lavender/65 max-w-lg mt-1">
+                <p className="text-xs sm:text-sm text-lavender/65 max-w-lg mt-1">
                   {s.description}
                 </p>
               </div>
             </div>
 
             {/* Year Switcher Pills */}
-            <div className="flex flex-col items-end gap-2">
+            <div className="flex flex-col items-start sm:items-end gap-2">
               <span className="text-[10.5px] font-bold uppercase tracking-[0.14em] text-lavender/45">
                 {t('specialty.academicYear')}
               </span>
@@ -338,7 +338,7 @@ function SpecialtyHubContent({
           </div>
 
           {/* Section Blurb & Filters */}
-          <div className="flex items-center justify-between gap-4 mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <p className="text-sm text-lavender/55">
               <span className="font-semibold text-lavender">
                 {meta?.label || `${activeSection?.name || 'Section'} Resources`}
@@ -346,7 +346,7 @@ function SpecialtyHubContent({
               — {meta?.blurb || 'Curated educational material published by instructors.'}
             </p>
 
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
               {(['all', ...FORMATS] as const).map((f) => (
                 <button
                   key={f}
@@ -430,19 +430,19 @@ function LectureRowItem({
   const saved = isBookmarked(l.id)
 
   return (
-    <div className="group flex items-center gap-5 p-3 pr-5 rounded-2xl bg-navy/60 ring-1 ring-lavender/10 hover:ring-amethyst/50 hover:bg-navy transition-all animate-fade-up">
+    <div className="group flex flex-col md:flex-row items-stretch md:items-center gap-3 sm:gap-5 p-3 sm:pr-5 rounded-2xl bg-navy/60 ring-1 ring-lavender/10 hover:ring-amethyst/50 hover:bg-navy transition-all animate-fade-up">
       {index !== undefined && (
-        <span className="w-6 text-center text-sm font-bold text-lavender/35 tabular-nums">
+        <span className="hidden md:inline-block w-6 text-center text-sm font-bold text-lavender/35 tabular-nums">
           {index}
         </span>
       )}
 
-      <Link href={`/lectures/${l.id}`} className="shrink-0">
-        <LectureThumb lecture={l} compact className="w-48" />
+      <Link href={`/lectures/${l.id}`} className="shrink-0 w-full md:w-48">
+        <LectureThumb lecture={l} compact className="w-full md:w-48 aspect-video" />
       </Link>
 
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1.5">
+        <div className="flex flex-wrap items-center gap-2 mb-1.5">
           <CategoryBadge category={l.category} />
           <FormatBadge format={l.format} />
           <span className="text-[11px] font-semibold text-lavender/45">
@@ -457,7 +457,7 @@ function LectureRowItem({
           {l.title}
         </Link>
 
-        <div className="flex items-center gap-4 mt-2 text-xs text-lavender/55">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 mt-2 text-xs text-lavender/55">
           <span className="inline-flex items-center gap-1.5">
             <Avatar name={l.instructor} size="sm" /> {l.instructor}
           </span>
@@ -475,48 +475,50 @@ function LectureRowItem({
         </div>
       </div>
 
-      {/* Instructor actions */}
-      {role === 'instructor' && (
-        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button
-            onClick={() => openModal({ type: 'edit-lecture', lecture: l })}
-            title="Edit lecture"
-            className="size-9 grid place-items-center rounded-xl bg-midnight/80 ring-1 ring-lavender/15 text-lavender/70 hover:text-amethyst cursor-pointer"
-          >
-            <Edit className="size-4" />
-          </button>
-          <button
-            onClick={() => openModal({ type: 'delete-lecture', lecture: l })}
-            title="Delete lecture"
-            className="size-9 grid place-items-center rounded-xl bg-midnight/80 ring-1 ring-lavender/15 text-lavender/70 hover:text-red-400 cursor-pointer"
-          >
-            <Trash2 className="size-4" />
-          </button>
-        </div>
-      )}
-
-      {/* Bookmark button */}
-      <button
-        onClick={() => toggleBookmark(l.id)}
-        aria-label={saved ? 'Remove bookmark' : 'Save to bookmarks'}
-        aria-pressed={saved}
-        className={cx(
-          'size-10 grid place-items-center rounded-xl ring-1 transition-colors cursor-pointer shrink-0',
-          saved
-            ? 'bg-amethyst/20 ring-amethyst text-amethyst'
-            : 'ring-lavender/15 text-lavender/60 hover:text-amethyst hover:ring-amethyst/60',
+      <div className="flex items-center gap-2 shrink-0 justify-end md:justify-start pt-2 md:pt-0 border-t border-lavender/5 md:border-0">
+        {/* Instructor actions */}
+        {role === 'instructor' && (
+          <div className="flex items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+            <button
+              onClick={() => openModal({ type: 'edit-lecture', lecture: l })}
+              title="Edit lecture"
+              className="size-9 grid place-items-center rounded-xl bg-midnight/80 ring-1 ring-lavender/15 text-lavender/70 hover:text-amethyst cursor-pointer"
+            >
+              <Edit className="size-4" />
+            </button>
+            <button
+              onClick={() => openModal({ type: 'delete-lecture', lecture: l })}
+              title="Delete lecture"
+              className="size-9 grid place-items-center rounded-xl bg-midnight/80 ring-1 ring-lavender/15 text-lavender/70 hover:text-red-400 cursor-pointer"
+            >
+              <Trash2 className="size-4" />
+            </button>
+          </div>
         )}
-      >
-        <Bookmark className={cx('size-4', saved && 'fill-current')} />
-      </button>
 
-      {/* Open / Watch CTA */}
-      <Link
-        href={`/lectures/${l.id}`}
-        className="h-10 px-4 rounded-xl bg-violet text-lavender text-sm font-semibold inline-flex items-center gap-1.5 shrink-0 group-hover:bg-amethyst group-hover:text-midnight transition-colors"
-      >
-        {l.format === 'MP4' ? 'Watch' : 'Open'} <ArrowRight className="size-4" />
-      </Link>
+        {/* Bookmark button */}
+        <button
+          onClick={() => toggleBookmark(l.id)}
+          aria-label={saved ? 'Remove bookmark' : 'Save to bookmarks'}
+          aria-pressed={saved}
+          className={cx(
+            'size-10 grid place-items-center rounded-xl ring-1 transition-colors cursor-pointer shrink-0',
+            saved
+              ? 'bg-amethyst/20 ring-amethyst text-amethyst'
+              : 'ring-lavender/15 text-lavender/60 hover:text-amethyst hover:ring-amethyst/60',
+          )}
+        >
+          <Bookmark className={cx('size-4', saved && 'fill-current')} />
+        </button>
+
+        {/* Open / Watch CTA */}
+        <Link
+          href={`/lectures/${l.id}`}
+          className="h-10 px-4 rounded-xl bg-violet text-lavender text-sm font-semibold inline-flex items-center gap-1.5 shrink-0 group-hover:bg-amethyst group-hover:text-midnight transition-colors"
+        >
+          {l.format === 'MP4' ? 'Watch' : 'Open'} <ArrowRight className="size-4" />
+        </Link>
+      </div>
     </div>
   )
 }

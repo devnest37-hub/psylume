@@ -18,8 +18,8 @@ export default function DashboardLayout({
       <Sidebar />
       <div
         className={cx(
-          'min-w-[1180px] transition-[padding] duration-200',
-          isRTL ? 'pr-[264px] pl-0' : 'pl-[264px] pr-0',
+          'w-full min-w-0 flex-1 transition-[padding] duration-200 overflow-x-hidden',
+          isRTL ? 'lg:pr-[264px]' : 'lg:pl-[264px]',
         )}
       >
         <Suspense
@@ -29,7 +29,7 @@ export default function DashboardLayout({
         >
           <Header />
         </Suspense>
-        <main className="px-8 py-8 max-w-[1600px] mx-auto">
+        <main className="px-4 sm:px-6 lg:px-8 py-5 sm:py-8 max-w-[1600px] mx-auto w-full">
           <Suspense
             fallback={
               <div className="py-20 text-center text-sm text-lavender/40">

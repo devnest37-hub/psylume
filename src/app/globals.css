@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-arabic: 'Cairo', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+
+  --color-midnight: #062726;
+  --color-navy: #102b3f;
+  --color-violet: #6247aa;
+  --color-amethyst: #a06cd5;
+  --color-lavender: #e2cfea;
+  --color-paper: color-mix(in oklab, #e2cfea 22%, white);
+
+  --animate-fade-up: fade-up 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade-in: fade-in 0.2s ease-out both;
+  --animate-pop: pop 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background: var(--color-midnight);
+  color: var(--color-lavender);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'ss01', 'cv11';
+}
+
+[dir='rtl'],
+:root[dir='rtl'] body {
+  font-family: 'Cairo', var(--font-sans);
+}
+
+::selection {
+  background: var(--color-violet);
+  color: var(--color-lavender);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--color-lavender) 18%, transparent) transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-amethyst);
+  outline-offset: 2px;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-lavender) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-lavender) 5%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+input[type='range'] {
+  accent-color: var(--color-amethyst);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
